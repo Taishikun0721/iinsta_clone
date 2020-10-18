@@ -17,7 +17,7 @@
 class User < ApplicationRecord
   authenticates_with_sorcery!
   validates :email, presence: true, uniqueness: true
-  # new_record?がfalseなら, パスワードが返ってくる。つまり登録されていなかったらパスワードが渡される。
+  # new_record?は新規登録の場合にバリデーションが作動する。changes[:crypted_password]は更新の時に作動する。
   validates :password, length: { minimum: 3 }, if: -> { new_record? || changes[:crypted_password] }
   validates :password, confirmation: true, if: -> { new_record? || changes[:crypted_password] }
   validates :password_confirmation, presence: true, if: -> { :new_record? || changes[:crypted_password] }
