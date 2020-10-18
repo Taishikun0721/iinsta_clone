@@ -1,3 +1,16 @@
+class User < ApplicationRecord
+  authenticates_with_sorcery!
+  # 紐づいているユーザーが削除された場合、紐づいているpostも自動的に全て削除する。
+  has_many :posts, dependent: :destroy
+
+  validates :email, presence: true, uniqueness: true
+  # new_record?は新規登録の場合にバリデーションが作動する。changes[:crypted_password]は更新の時に作動する。
+  validates :password, length: { minimum: 3 }, if: -> { new_record? || changes[:crypted_password] }
+  validates :password, confirmation: true, if: -> { new_record? || changes[:crypted_password] }
+  validates :password_confirmation, presence: true, if: -> { :new_record? || changes[:crypted_password] }
+  validates :username, presence: true
+end
+
 # == Schema Information
 #
 # Table name: users
@@ -14,12 +27,3 @@
 #
 #  index_users_on_email  (email) UNIQUE
 #
-class User < ApplicationRecord
-  authenticates_with_sorcery!
-  validates :email, presence: true, uniqueness: true
-  # new_record?は新規登録の場合にバリデーションが作動する。changes[:crypted_password]は更新の時に作動する。
-  validates :password, length: { minimum: 3 }, if: -> { new_record? || changes[:crypted_password] }
-  validates :password, confirmation: true, if: -> { new_record? || changes[:crypted_password] }
-  validates :password_confirmation, presence: true, if: -> { :new_record? || changes[:crypted_password] }
-  validates :username, presence: true
-end
