@@ -16,6 +16,13 @@ gem 'uglifier', '>= 1.3.0'
 # See https://github.com/rails/execjs#readme for more supported runtimes
 # gem 'mini_racer', platforms: :ruby
 
+# HTMLを効率よく書くためにslimを導入
+# また既存のerbファイルを変換するためにhtml2slimを導入。最初に使用したら必要ないので削除する。
+gem 'slim-rails'
+
+# 国際化対応のためにrails-i18nを導入
+gem 'rails-i18n', '~> 5.1'
+
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.5'
 # Use Redis adapter to run Action Cable in production
@@ -31,6 +38,9 @@ gem 'jbuilder', '~> 2.5'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.1.0', require: false
+# ログイン認証用にsorceryを導入
+gem 'sorcery'
+gem 'redis-rails'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -44,6 +54,27 @@ group :development do
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
+  # Rails・Rubyの構文をチェックするためにrubocopを導入
+  # rubocop-paperformanceとrubocop-rspecというのもあったので調べてみる
+  gem 'rubocop', require: false
+  gem 'rubocop-rails' , require: false
+  # better_errorsを導入して、エラー画面を見やすくする。
+  # binding_of_callerでエラー画面でコンソールを使用できる様にする。
+  # ちょっと開いて使ってみたが、めちゃ良さそうだった。もっと早くから入れていたらよかった。。
+  gem 'better_errors'
+  gem 'binding_of_caller'
+  # pry-byebugを導入して、binding.pry(ブレイクポイント)を埋め込める様にする。
+  # pry-railsでそこからnextを使える様にして、1行ずつ処理を進められる様にする。
+  # byebugとpry-byebugは何が違うのか調べてみよう。
+  gem 'pry-byebug'
+  gem 'pry-rails'
+  # annotateを導入して、各モデルのスキーマ情報をモデルに書き出す。routes.rbにルーティング情報を書き出してくれる機能もあるらしい。。Rubymineだからそれは今回使わない
+  # あと、development環境でしか使わないからここに入れたが場所はあってるかな。。
+  gem 'annotate'
+  # Bootstrapの依存関係解消のためにjquery-railsとpopper_jsを導入
+  gem 'jquery-rails'
+  gem 'popper_js'
+  gem 'font-awesome-sass', '~> 5.2.0'
 end
 
 group :test do
