@@ -9,6 +9,11 @@ class User < ApplicationRecord
   validates :password, confirmation: true, if: -> { new_record? || changes[:crypted_password] }
   validates :password_confirmation, presence: true, if: -> { :new_record? || changes[:crypted_password] }
   validates :username, presence: true
+
+  # 引数にpostオブジェクトを渡して、左辺のuser.idと比較して同じなら編集と削除のアイコンを表示。
+  def own?(object)
+    id == object.user_id
+  end
 end
 
 # == Schema Information
