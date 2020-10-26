@@ -15,7 +15,7 @@ class Post < ApplicationRecord
 
   # 遊びメソッド。ダミーusername生成用。名前漏れてたらすみません
   def self.dummy_name_for_sparta(count)
-    %w[だいそん hamayooo naok1207 てる かろりーな みけた JUN_Y yu_ki showta0511 なんぶ yukisa2010 takumi Ryo DaiKentaro naoki].sample(up_to_showing_user)
+    %w[だいそん hamayooo naok1207 てる かろりーな みけた JUN_Y yu_ki showta0511 なんぶ yukisa2010 takumi Ryo DaiKentaro naoki].sample(count)
   end
 end
 
