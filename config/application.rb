@@ -10,9 +10,6 @@ module InstaClone
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 5.2
-
-    config.autoload_paths += Dir[Rails.root.join('app', 'uploaders')]
-
     # Railsのタイムゾーンを指定する。
     # またアプリのデフォルトの言語を日本語にする。
     config.time_zone = 'Asia/Tokyo'
