@@ -5,7 +5,7 @@ class PostsController < ApplicationController
     # postモデルにscopeを定義してます。== scope :recent, -> { order(created_at: :desc) }
     @posts = Post.all.includes(:user).recent
     # ダミーテキストじゃなくて、スパルタコースの人がランダムで入るメソッドにしました。しかるべき時がきたら消します。。
-    @dummy_names = Post.dummy_name_for_sparta
+    @dummy_names = Post.dummy_name_for_sparta(4)
   end
 
   def show
