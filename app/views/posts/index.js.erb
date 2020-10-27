@@ -1,0 +1,14 @@
+var postsPaginate = document.querySelector('#posts');
+postsPaginate.innerHTML = "<%= j render(@posts) %><%= j paginate @posts, remote: true %>  "
+
+var mySwiper = new Swiper ('.swiper-container', {
+    loop: true,
+    pagination: {
+        el: '.swiper-pagination',
+    },
+    autoplay: {
+        delay: 3000,
+    },
+})
+//クライアント側に上のJSが返却されて実行される。その際swiperの初期化コードはすでに読み込まれているから再定義してあげないと動かない？？
+//ここはもっと調べたい
