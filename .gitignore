@@ -28,3 +28,4 @@
 /config/database.yml
 dump.rdb
 .idea/
+./public/uploads/
