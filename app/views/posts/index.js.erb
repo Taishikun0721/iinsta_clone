@@ -1,0 +1,17 @@
+var postsPaginate = document.querySelector('#posts');
+postsPaginate.innerHTML = "<%= j render 'posts_paginate', posts: @posts%> "
+history.replaceState( "", "" ,"?page=<%= @page %>");
+//このままで動きました!!
+//後URLを無理やり変更してリロードできる様にしてみました。よくない気がするなー。
+
+var mySwiper = new Swiper ('.swiper-container', {
+    loop: true,
+    pagination: {
+        el: '.swiper-pagination',
+    },
+    autoplay: {
+        delay: 3000,
+    },
+})
+//クライアント側に上のJSが返却されて実行される。その際swiperの初期化コードはすでに読み込まれているから再定義してあげないと動かない？？
+//ここはもっと調べたい

@@ -3,7 +3,9 @@ class PostsController < ApplicationController
 
   def index
     # postモデルにscopeを定義してます。== scope :recent, -> { order(created_at: :desc) }
-    @posts = Post.all.includes(:user).recent
+    # ページネーションに対応する様にメソッドを書き換え
+    @posts = Post.page(params[:page]).includes(:user).recent
+    @page = params[:page]
     # ダミーテキストじゃなくて、スパルタコースの人がランダムで入るメソッドにしました。しかるべき時がきたら消します。。
     @dummy_names = Post.dummy_name_for_sparta(4)
   end
