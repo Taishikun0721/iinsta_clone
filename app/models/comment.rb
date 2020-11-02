@@ -6,8 +6,8 @@
 #  body       :text(65535)      not null
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
-#  post_id    :bigint
-#  user_id    :bigint
+#  post_id    :bigint           not null
+#  user_id    :bigint           not null
 #
 # Indexes
 #
