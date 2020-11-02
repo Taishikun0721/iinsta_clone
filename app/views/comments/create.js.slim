@@ -1,0 +1,7 @@
+- if @comment.errors.present?
+  | alert("#{@comment.errors.full_messages.join('\n')}");
+- else
+  / クラス.comment_box（つまりコメント一覧）の先頭に作成されたコメントを挿入する。IDはパーシャルの中でどのコメントか特定するために必要
+  | $('.comments-box').prepend("#{j render('comments/comment', comment: @comment)}");
+  | $('.input-comment-body').val('');
+  / 投稿した後に明示的にコメント欄を空白にしないと非同期処理で部分的に更新しているので前回のコメントが残ってしまう

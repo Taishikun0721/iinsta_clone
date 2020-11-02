@@ -1,0 +1,7 @@
+- if @comment.errors.present?
+  | alert("#{@comment.errors.full_messages.join('\n')}");
+- else
+  / 対象の要素に対してhtmlメソッドを使用すると中身が置き換わる
+  | $("#comment-#{@comment.id}").html("#{j render('comments/comment', comment: @comment)}");
+  / モーダルを閉じる
+  | $("#comment-edit-modal").modal('hide');
