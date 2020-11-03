@@ -41,7 +41,7 @@ class PostImageUploader < CarrierWave::Uploader::Base
   # For images you might use something like this:
   # この拡張子以外は投稿できない様にする。
   def extension_whitelist
-    %w(jpg jpeg gif png)
+    %w[jpg jpeg gif png]
   end
 
   # Override the filename of the uploaded files:
