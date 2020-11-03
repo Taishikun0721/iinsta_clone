@@ -1,40 +1,36 @@
 class CommentsController < ApplicationController
   before_action :require_login
   # ログインしてないとアクセスできない様にした。この調子でbefore_actionとかが増えてくるなら
+  before_action :set_comment, only: [:edit, :update, :destroy]
 
   def new
     @comment = Comment.new
   end
 
   def create
-    # パRailsで学んだ書き方を使用してみた！けど普通にストロングパラメーターで書いた方がシンプルですね！
-    post = Post.find(params[:post_id])
-    @comment = current_user.comments.new do |comment|
-      comment.post = post
-      comment.body = params[:comment][:body]
-    end
+    @comment = current_user.comments.new(comment_params)
     @comment.save
   end
 
-  def edit
-    set_comment(params[:id])
-  end
+  def edit; end
 
   def update
-    set_comment(params[:id])
     @comment.update(comment_update_params)
   end
 
   def destroy
-    set_comment(params[:id])
     @comment.destroy!
   end
 
   private
 
-  def set_comment(id)
-    @comment = current_user.comments.find(id)
-    # before_actionが肥大化してきたら嫌なのでメソッド内で呼び出す様にしてみた。それかbefore_actionをどこかにまとめて切り出せる方法とかってあるんですか？？
+  def set_comment
+    @comment = current_user.comments.find(params[:id])
+  end
+
+  def comment_params
+    # post_idの情報はフォームから送信してくるものでは無いので、mergeメソッドで後から付与してあげる
+    params.require(:comment).permit(:body).merge(post_id: params[:post_id])
   end
 
   def comment_update_params
