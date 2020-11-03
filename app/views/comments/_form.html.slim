@@ -1,0 +1,7 @@
+.post-comment.p-3
+  = form_with model: [post, comment], class: 'form.form-inline.mb-0 d-flex', remote: true do |f|
+    = f.text_field :body, placeholder: 'コメント(1000文字以内)', class: 'form-control input-comment-body'
+    = f.submit '投稿', class: 'btn btn-raised btn-primary', id: 'comment-submit'
+div
+  = render 'comments/comment_count'
+  / せっかく作ったので文字列カウントを付けてみた。モーダルの中では動かなかった。なぜ。。原因探し中

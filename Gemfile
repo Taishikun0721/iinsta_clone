@@ -46,7 +46,7 @@ gem 'redis-rails'
 gem 'carrierwave'
 # 画像サイズ変更ようにmini_magick導入
 gem 'mini_magick'
-#ページネーション実装のため、kaminariを導入
+# ページネーション実装のため、kaminariを導入
 gem 'kaminari'
 
 group :development, :test do

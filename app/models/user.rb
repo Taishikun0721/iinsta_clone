@@ -17,8 +17,9 @@
 
 class User < ApplicationRecord
   authenticates_with_sorcery!
-  # 紐づいているユーザーが削除された場合、紐づいているpostも自動的に全て削除する。
+  # 紐づいているユーザーが削除された場合、紐づいているpostも自動的に全て削除する。commentも同じ
   has_many :posts, dependent: :destroy
+  has_many :comments, dependent: :destroy
 
   validates :email, presence: true, uniqueness: true
   # new_record?は新規登録の場合にバリデーションが作動する。changes[:crypted_password]は更新の時に作動する。

@@ -12,8 +12,9 @@ class PostsController < ApplicationController
 
   def show
     @post = Post.find(params[:id])
-    # 完全にダミーコメントです。消します。
-    @dummy_comments = [Faker::Games::Pokemon.location, Faker::Games::Pokemon.name]
+    @comment = Comment.new
+    # N+1問題解決のためにこの様な書き方をしている。テーブルをまたいで取得しにいく場合はまず発生するので忘れずに書く
+    @comments = @post.comments.includes(:user).recent
   end
 
   def new
@@ -30,8 +31,7 @@ class PostsController < ApplicationController
     end
   end
 
-  def edit
-  end
+  def edit; end
 
   def update
     if @post.update(post_params)
