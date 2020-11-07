@@ -2,12 +2,13 @@
 #
 # Table name: posts
 #
-#  id         :bigint           not null, primary key
-#  body       :text(65535)      not null
-#  images     :string(255)      not null
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
-#  user_id    :bigint
+#  id          :bigint           not null, primary key
+#  body        :text(65535)      not null
+#  images      :string(255)      not null
+#  likes_count :integer          default(0), not null
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
+#  user_id     :bigint
 #
 # Indexes
 #
@@ -16,11 +17,16 @@
 # Foreign Keys
 #
 #  fk_rails_...  (user_id => users.id)
+#
 
 class Post < ApplicationRecord
   belongs_to :user
-  # postが削除されたら、紐づいているコメントも消えるため
+  # postが削除されたら、紐づいているコメントも消えるため, likeも同じ
   has_many :comments, dependent: :destroy
+  has_many :likes, dependent: :destroy
+  # likeしたuserを取得するlikesテーブルが間に入っているからthroughオプションが必要になる。sourceは別名を使っている時に
+  # 必要なオプションで参照先のモデル名を記入する。
+  has_many :like_users, through: :likes, source: :user
   # Not Null制約を付けたら必須のバリデーションはつけるべきと考えたので付けた。
   validates :images, presence: true
   validates :body, presence: true, length: { maximum: 100 }

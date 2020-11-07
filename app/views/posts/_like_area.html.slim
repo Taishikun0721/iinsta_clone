@@ -1,0 +1,6 @@
+div id="like-area-#{post.id}"
+  / Likeしてたらunlikeつまりdestroyアクションが仕組まれているパーシャルにlikeしてなかったらcreateアクションのパーシャルを出す
+  - if current_user.like?(post)
+    = render 'unlike', post: post
+  - else
+    = render 'like', post: post

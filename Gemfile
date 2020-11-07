@@ -23,6 +23,9 @@ gem 'slim-rails'
 # 国際化対応のためにrails-i18nを導入
 gem 'rails-i18n', '~> 5.1'
 
+# likeのカウントを数えるために導入
+gem 'counter_culture', '~> 1.0'
+
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.5'
 # Use Redis adapter to run Action Cable in production

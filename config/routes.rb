@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   resources :posts, shallow: true do
     resources :comments, only: [:new, :create, :edit, :update, :destroy]
   end
+  resources :likes, only: %i[create destroy]
   get '/login', to: 'user_sessions#new'
   post '/login', to: 'user_sessions#create'
   delete '/logout', to: 'user_sessions#destroy'
