@@ -1,7 +1,11 @@
 .container
   .row
     #posts.col-md-8.col-12
-      = render 'posts_paginate', { posts: @posts, page: @page }
+      - if @posts.present?
+        = render 'posts_paginate', { posts: @posts, page: @page }
+      - else
+        .text-center.font-weight-bold
+        | 投稿がありません
     .col-md-4.col-12
       - if logged_in?
         .profile-box.mb-3
@@ -12,9 +16,6 @@
           .card-header
             | ユーザー
           .card-body
-            - @dummy_names.each do |name|
-              .user.mb-3
-                = image_tag 'profile-placeholder.png', size: '40x40', class: 'rounded-circle mr-1'
-                = name
+            = render @users
           .card-footer
-            = link_to 'すべて見る', '#'
+            = link_to 'すべて見る', users_path
