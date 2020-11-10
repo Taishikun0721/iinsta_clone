@@ -1,13 +1,18 @@
 class PostsController < ApplicationController
   before_action :set_post, only: [:edit, :update, :destroy]
+  # 指定したメソッドについてはログインを必須にしている。
+  before_action :require_login, only: %i[new create edit update destroy]
 
   def index
-    # postモデルにscopeを定義してます。== scope :recent, -> { order(created_at: :desc) }
-    # ページネーションに対応する様にメソッドを書き換え
-    @posts = Post.page(params[:page]).includes(:user).recent
+    # recentメソッドは元々使用していた部分があったので、少し拡張して、引数なしでもいい様にした。引数なしの場合は普通に降順にするだけです。
+    # feedメソッドは、フォローしているリストに自分をするメソッド。つまり、自分とフォローしている人だけを表示できることを示す
+    @posts = if current_user
+               current_user.feed.includes(:user).page(params[:page]).recent
+             else
+               Post.all.includes(:user).page(params[:page]).recent
+             end
+    @users = User.recent(5)
     @page = params[:page]
-    # ダミーテキストじゃなくて、スパルタコースの人がランダムで入るメソッドにしました。しかるべき時がきたら消します。。
-    @dummy_names = Post.dummy_name_for_sparta(4)
   end
 
   def show
