@@ -1,0 +1,3 @@
+var usersPaginate = document.querySelector('#users');
+usersPaginate.innerHTML = "<%= j render 'users/users_paginate', users: @users%> "
+history.replaceState( "", "" ,"?page=<%= @page %>");
