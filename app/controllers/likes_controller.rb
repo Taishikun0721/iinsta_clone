@@ -11,4 +11,3 @@ class LikesController < ApplicationController
   end
 end
 
-# モデルでreloadさせて数値を取得したいので、ローカル変数とインスタンス変数で分けている
