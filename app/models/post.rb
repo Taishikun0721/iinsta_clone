@@ -30,11 +30,13 @@ class Post < ApplicationRecord
   # Not Null制約を付けたら必須のバリデーションはつけるべきと考えたので付けた。
   validates :images, presence: true
   validates :body, presence: true, length: { maximum: 100 }
-
   # 複数枚画像を投稿する時は、mount_uplodersと言う風にsを付けて複数形にする。こうする事で、配列で格納できる様になる。
-  # 最初sを飛ばしていて、nullに対してeachメソッドを使う形になっていたのでundifind_methodがでた。sを付けたら空配列に対してeach文なので出ない。
+  # 最初を飛ばしていて、nullに対してeachメソッドを使う形になっていたのでundifind_methodがでた。sを付けたら空配列に対してeach文なので出ない。
   mount_uploaders :images, PostImageUploader
 
   # serializeを付けずに投稿するとURLとして認識されてない。
   serialize :images, JSON
+  # scope :body_contain, ->(body) { where("body like %#{body}%") }の様にするとSQLインジェクションのリスクがあるらしい。
+  # 仮変数bodyにはSearchPostsFormクラスがフォームないで受けたパラメーターが入る。
+  scope :body_contain, ->(body) { where('body like ?', "%#{body}%") }
 end
