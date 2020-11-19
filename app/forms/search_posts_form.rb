@@ -15,6 +15,8 @@ class SearchPostsForm
     # あくまでSearchPostsFormクラスは、フォームで一時的に値を格納する受け皿になっているだけなので、最終的にはPostモデルに対して検索をかける
     # Postクラスの中を検索して、結果を返してあげないといけない。
     # body_containはPostクラスのメソッドなのでmodels/post.rbに記載あり
-    Post.body_contain(body) if body.present?
+    scope = Post.distinct
+    scope = scope.body_contain(body) if body.present?
+    scope
   end
 end
