@@ -99,6 +99,13 @@ img {
   }
 }
 
+// paginationがなぜか真ん中に来なくて、開発者ツールでpaginationクラスにflexはあるのにjustify-content: center;がないのを発見。
+//勝手に付けて怒られるかなと思ってだいそんさんのを見たら、全く一緒の事をやっていたのでちょっと自信になった笑
+
+.pagination {
+  justify-content: center;
+}
+
 //likeの数のスタイルを微調整
 #like-count {
   padding-left: 5px;

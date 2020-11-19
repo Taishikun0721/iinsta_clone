@@ -45,7 +45,6 @@ class User < ApplicationRecord
   validates :password_confirmation, presence: true, if: -> { :new_record? || changes[:crypted_password] }
   validates :username, presence: true
 
-
   # 引数にpostオブジェクトを渡して、左辺のuser.idと比較して同じなら編集と削除のアイコンを表示。
   def own?(object)
     id == object.user_id
@@ -73,10 +72,12 @@ class User < ApplicationRecord
   def follow(other_user)
     following << other_user
   end
+
   # 逆にアンフォローしたければ、destroyの引数にアンフォローしたユーザーを渡せば良い
   def unfollow(other_user)
     following.destroy(other_user)
   end
+
   # コレクションに存在していればtrueしてなければfalse
   def following?(other_user)
     following.include?(other_user)
