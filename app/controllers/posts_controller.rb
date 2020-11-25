@@ -1,8 +1,8 @@
 class PostsController < ApplicationController
   before_action :set_post, only: [:edit, :update, :destroy]
   # 指定したメソッドについてはログインを必須にしている。
-  before_action :require_login, only: [:new, :create, :edit, :update, :destroy, :search]
-  # ログイン前は検索機能は使えない様になっていたので、コントローラー側でも制御をかけました。view側も非表示にしています。
+  before_action :require_login, only: [:new, :create, :edit, :update, :destroy]
+  # コントローラー側の制御を外した
 
   def index
     # recentメソッドは元々使用していた部分があったので、少し拡張して、引数なしでもいい様にした。引数なしの場合は普通に降順にするだけです。
