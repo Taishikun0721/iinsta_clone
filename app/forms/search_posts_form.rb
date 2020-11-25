@@ -7,7 +7,7 @@ class SearchPostsForm
   include ActiveModel::Attributes
 
   attribute :body, :string
-  attribute :comment, :string
+  attribute :comment_body, :string
   attribute :username, :string
   # この記述によって、bodyとcomment_bodyがstring型と言うことが定義された
 
@@ -17,7 +17,7 @@ class SearchPostsForm
     scope = splited_bodies.map { |splited_body| scope.body_contain(splited_body)}.inject { |result, scp | result.or(scp) } if body.present?
     # 前後の空白を取り除いた配列をmapを使ってワード一つ一つに対して検索をかけていく。その結果をor条件で前ワードで検索した結果と
     # 照らし合わせているinjectメソッドは畳み込み演算のメソッドで前ループまでの結果がresultに入っていく。
-    scope = scope.comment_body_contain(comment) if comment.present?
+    scope = scope.comment_body_contain(comment_body) if comment_body.present?
     scope = scope.username_contain(username) if username.present?
     scope
   end
