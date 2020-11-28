@@ -36,7 +36,10 @@ class Post < ApplicationRecord
 
   # serializeを付けずに投稿するとURLとして認識されてない。
   serialize :images, JSON
-  # scope :body_contain, ->(body) { where("body like %#{body}%") }の様にするとSQLインジェクションのリスクがあるらしい。
-  # 仮変数bodyにはSearchPostsFormクラスがフォームないで受けたパラメーターが入る。
-  scope :body_contain, ->(body) { where('body like ?', "%#{body}%") }
+
+  scope :body_contain, ->(word) { where('body like ?', "%#{word}%") }
+  scope :username_contain, ->(word) { joins(:user).where('username like ?', "%#{word}%") }
+  scope :comment_body_contain, ->(word) { joins(:comments).where('comments.body like ? ', "%#{word}%") }
+  # joinsは関連名を指定する。comment_body_containはpostにもbodyという属性があるからテーブル名を前に付けて指定してあげる。
+  # or検索がめっちゃ複雑になるということがわかった
 end

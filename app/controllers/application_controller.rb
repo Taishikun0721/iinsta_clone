@@ -12,6 +12,6 @@ class ApplicationController < ActionController::Base
   def search_post_params
     # 普通にrequire(:search_posts_form)で指定してしまうと、application_controllerが呼び出された時点で、エラーになってしまう。
     # SearchPostsFormクラスがまだ読み込まれていないため
-    params.fetch(:q, {}).permit(:body)
+    params.fetch(:q, {}).permit(:body, :comment_body, :username)
   end
 end
