@@ -3,6 +3,7 @@
 # Table name: users
 #
 #  id               :bigint           not null, primary key
+#  avatar           :string(255)
 #  crypted_password :string(255)
 #  email            :string(255)      not null
 #  salt             :string(255)
@@ -17,6 +18,7 @@
 
 class User < ApplicationRecord
   authenticates_with_sorcery!
+  mount_uploader :avatar, AvatarUploader
   # 紐づいているユーザーが削除された場合、紐づいているpostも自動的に全て削除する。commentも同じ likeも同じ
   has_many :posts, dependent: :destroy
   has_many :comments, dependent: :destroy
@@ -38,12 +40,14 @@ class User < ApplicationRecord
   # ここはめちゃ難しかったのでd、だいそんさんのサンプルのconsoleで動かしてみたり、定義の名前を入れ替えてみてどんなエラーが出るかなど結構いじった。
   # 結果、usersテーブルとrelationshipテーブルしか無いが、名前を変更する事で、
 
+  validates :username, presence: true
   validates :email, presence: true, uniqueness: true
   # new_record?は新規登録の場合にバリデーションが作動する。changes[:crypted_password]は更新の時に作動する。
   validates :password, length: { minimum: 3 }, if: -> { new_record? || changes[:crypted_password] }
   validates :password, confirmation: true, if: -> { new_record? || changes[:crypted_password] }
-  validates :password_confirmation, presence: true, if: -> { :new_record? || changes[:crypted_password] }
-  validates :username, presence: true
+  validates :password_confirmation, presence: true, if: -> { new_record? || changes[:crypted_password] }
+  # :new_record?というふうにシンボルになってたから修正。password_confirmationのバリデーションが作動してしまっていた
+  # なぜかはあんまりわかっていない。シンボルになることで、new_record?がtrueになる事ってあるのんかな？と思った。
 
   # 引数にpostオブジェクトを渡して、左辺のuser.idと比較して同じなら編集と削除のアイコンを表示。
   def own?(object)
