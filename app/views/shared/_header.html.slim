@@ -6,6 +6,10 @@ nav.navbar.navbar-expand-lg.navbar-light.bg-white
     = render 'posts/search_form', search_form: @search_form
     ul.navbar-nav.mt-2.mt-lg-0
       li.nav-item
+        = link_to posts_path, class: 'nav-link' do
+          = icon 'far', 'eye', class: 'fa-lg'
+          / 一覧画面に戻るのが面倒だったので追加
+      li.nav-item
         = link_to new_post_path, class: 'nav-link' do
           = icon 'far', 'image', class: 'fa-lg'
       li.nav-item
