@@ -14,7 +14,7 @@ class SearchPostsForm
   def search
     # 各項目を複合で検索する様にした場合、条件分岐がどんどん増えていってしまう様な気がした。そして対策を考えたが、if文を増やす以外にあまり考えられなかったので何かいい方法ないですか？
     scope = Post.distinct
-    scope = splited_bodies.map { |splited_body| scope.body_contain(splited_body)}.inject { |result, scp | result.or(scp) } if body.present?
+    scope = splited_bodies.map { |splited_body| scope.body_contain(splited_body) }.inject { |result, scp| result.or(scp) } if body.present?
     # 前後の空白を取り除いた配列をmapを使ってワード一つ一つに対して検索をかけていく。その結果をor条件で前ワードで検索した結果と
     # 照らし合わせているinjectメソッドは畳み込み演算のメソッドで前ループまでの結果がresultに入っていく。
     scope = scope.comment_body_contain(comment_body) if comment_body.present?
@@ -26,7 +26,7 @@ class SearchPostsForm
 
   def splited_bodies
     # bodyの前と後ろの空白を取り除いて、空白を区切りにして配列を作成
-    #[[:blank:]]+は正規表現みたいで、全く知らなかった。よく使う物に関しては覚えた方が良いかなと思った。
+    # [[:blank:]]+は正規表現みたいで、全く知らなかった。よく使う物に関しては覚えた方が良いかなと思った。
     body.strip.split(/[[:blank:]]+/)
   end
 end

@@ -10,4 +10,3 @@ class LikesController < ApplicationController
     @post = current_user.unlike(post)
   end
 end
-

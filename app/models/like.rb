@@ -37,4 +37,3 @@ class Like < ApplicationRecord
     # selfには実際にlikeやコメントしたインスタンスが入って、userにはされた人が入る。like.post.userなのでlikeされたpostの投稿者
   end
 end
-
