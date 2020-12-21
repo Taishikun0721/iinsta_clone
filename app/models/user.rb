@@ -39,6 +39,8 @@ class User < ApplicationRecord
   has_many :followers, through: :passive_relationships, source: :follower
   # ここはめちゃ難しかったのでd、だいそんさんのサンプルのconsoleで動かしてみたり、定義の名前を入れ替えてみてどんなエラーが出るかなど結構いじった。
   # 結果、usersテーブルとrelationshipテーブルしか無いが、名前を変更する事で、
+  has_many :activities, -> { recent }
+  # 全部降順で指定していたのでこっちに渡した。recent渡せるのかなと思ったがSQLは発行されていた。
 
   validates :username, presence: true
   validates :email, presence: true, uniqueness: true

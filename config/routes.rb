@@ -14,8 +14,14 @@ Rails.application.routes.draw do
 
   namespace :mypage do
     resource :account, only: [:edit, :update]
+    resources :activities, only: :index
   end
+  # 今回はmypage以下に自分への通知一覧画面を作成したいのでmypage以下にルーティングを設定する。
   # mypage以下に色々とファイルを作成するのでnamespaceを切る。自分アカウントに関する機能を追加する際はこの下に追加していく。
+
+  resources :activities, only: [] do
+    resource :read, only: :create
+  end
 
   resources :relationships, only: [:create, :destroy]
   resources :likes, only: [:create, :destroy]
