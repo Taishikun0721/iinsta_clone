@@ -9,7 +9,8 @@ class CommentsController < ApplicationController
 
   def create
     @comment = current_user.comments.new(comment_params)
-    @comment.save
+    UserMailer.with(user_from: current_user, user_to: @comment.post.user, comment: @comment).comment_post.deliver_later if @comment.save
+    # anchorを指定する為に@commentをメーラークラスに渡している。
   end
 
   def edit; end
