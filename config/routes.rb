@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   root 'posts#index'
 
   if Rails.env.development?
-    mount LetterOpenerWeb::Engine, at: "/letter_opener"
+    mount LetterOpenerWeb::Engine, at: '/letter_opener'
   end
   # letter_openerの設定。これでhttp://localhost:3000/letter_openerにアクセスするとメールが見る事ができる。
 
