@@ -2,6 +2,11 @@ Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   root 'posts#index'
 
+  if Rails.env.development?
+    mount LetterOpenerWeb::Engine, at: '/letter_opener'
+  end
+  # letter_openerの設定。これでhttp://localhost:3000/letter_openerにアクセスするとメールが見る事ができる。
+
   resources :users, only: [:index, :show, :new, :create]
   # shallowルーティングを使用すると、必ずネストが必要な(紐づけられたものを表示or作成するから)indexとcreate以外のネストを無くしてくれる。
   resources :posts, shallow: true do

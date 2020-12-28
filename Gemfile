@@ -51,6 +51,8 @@ gem 'carrierwave'
 gem 'mini_magick'
 # ページネーション実装のため、kaminariを導入
 gem 'kaminari'
+# 定数管理の為に導入
+gem 'config'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -87,6 +89,8 @@ group :development do
   gem 'jquery-rails'
   gem 'popper_js'
   gem 'font-awesome-sass', '~> 5.2.0'
+  # ブラウザでメールの確認ができる様にする為に導入
+  gem 'letter_opener_web'
 end
 
 group :test do
