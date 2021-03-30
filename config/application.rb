@@ -15,6 +15,8 @@ module InstaClone
     config.time_zone = 'Asia/Tokyo'
     config.active_record.default_timezone = :local
     config.i18n.default_locale = :ja
+    # 実際に非同期処理を行うのはsidekiqで、Active_jobはそのインターフェースを準備してるだけなので、ここでは、どの非同期処理ツールを使うか設定している。
+    config.active_job.queue_adapter = :sidekiq
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration can go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded after loading

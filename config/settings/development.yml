@@ -4,3 +4,5 @@ default_url_options:
 # localhost:300/~~~がURLになっていた。
 # 調べてみたところ、メーラーはプロトコルが違うから、リクエストの情報を持っていないから明示的にURLを指定する必要があると
 # 書かれていた。(HTTPとSMTPの違いって事かな？知識不足で詳しくわからなかった。)
+redis:
+  url: 'redis://localhost:6379'
