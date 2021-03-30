@@ -2,8 +2,10 @@ Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   root 'posts#index'
 
+  require 'sidekiq/web'
   if Rails.env.development?
     mount LetterOpenerWeb::Engine, at: '/letter_opener'
+    mount Sidekiq::Web, at: "/sidekiq"
   end
   # letter_openerの設定。これでhttp://localhost:3000/letter_openerにアクセスするとメールが見る事ができる。
 
