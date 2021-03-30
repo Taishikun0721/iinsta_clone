@@ -53,6 +53,10 @@ gem 'mini_magick'
 gem 'kaminari'
 # 定数管理の為に導入
 gem 'config'
+# 非同期処理を行うためにsidekiqを導入
+gem 'sidekiq'
+# ダッシュボードを利用するためにsinatraを導入。sidekiqには元々web UIがついてるが、sinatraで作られているため。
+gem 'sinatra'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
